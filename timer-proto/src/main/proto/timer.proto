@@ -1,0 +1,70 @@
+syntax = "proto3";
+
+package timer;
+
+option java_multiple_files = true;
+option java_package = "com.chubanova.grpc";
+option java_outer_classname = "TimerServiceProto";
+
+import "google/protobuf/timestamp.proto";
+
+
+service TimerService {
+    rpc addTimes (AddTimes) returns (Response);
+    rpc startTimer (StartTimer) returns (Response);
+    rpc watchStatisticFilter (WatchStatisticFilter) returns (Statistics);
+
+}
+
+message AddTimes {
+    google.protobuf.Timestamp time = 1;
+    string project = 2;
+    string subProject = 3;
+
+}
+
+message Response {
+    string status = 1;
+    google.protobuf.Timestamp allTime = 2;
+    string project = 3;
+    string subProject = 4;
+}
+
+message StartTimer {
+    enum Timer {
+        START = 0;
+        STOP = 1;
+    }
+    Timer starter = 1;
+    string project = 2;
+    string subProject = 3;
+}
+
+
+message WatchStatisticFilter {
+    enum Period {
+        ALL_PERIODS = 0;
+        YEAR = 1;
+        MONTH = 2;
+        WEEK = 3;
+        DAY = 4;
+        PERIOD = 5;
+    }
+
+    enum Project {
+        ALL_PROJECTS = 0;
+        CHOSEN = 1;
+    }
+    Period period = 1;
+    Project projects = 2;
+
+    repeated string project = 3;
+    repeated string subProject = 4;
+
+    google.protobuf.Timestamp since = 5;
+    google.protobuf.Timestamp for = 6;
+}
+
+message Statistics {
+    repeated Response response = 1;
+}
