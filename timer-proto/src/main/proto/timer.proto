@@ -18,16 +18,18 @@ service TimerService {
 
 message AddTimes {
     google.protobuf.Timestamp time = 1;
-    string project = 2;
-    string subProject = 3;
+    Project project = 2;
+}
 
+message Project{
+    string name = 1;
+    string subProject = 2;
 }
 
 message Response {
     string status = 1;
     google.protobuf.Timestamp allTime = 2;
-    string project = 3;
-    string subProject = 4;
+    Project project = 3;
 }
 
 message StartTimer {
@@ -36,8 +38,7 @@ message StartTimer {
         STOP = 1;
     }
     Timer starter = 1;
-    string project = 2;
-    string subProject = 3;
+    Project project = 2;
 }
 
 
@@ -58,11 +59,10 @@ message WatchStatisticFilter {
     Period period = 1;
     Project projects = 2;
 
-    repeated string project = 3;
-    repeated string subProject = 4;
+   repeated Project project = 3;
 
-    google.protobuf.Timestamp since = 5;
-    google.protobuf.Timestamp for = 6;
+    google.protobuf.Timestamp from = 4;
+    google.protobuf.Timestamp to = 5;
 }
 
 message Statistics {
