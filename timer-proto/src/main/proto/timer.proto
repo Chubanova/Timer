@@ -17,7 +17,7 @@ service TimerService {
 }
 
 message AddTimes {
-    google.protobuf.Timestamp time = 1;
+    int64 time = 1;
     Project project = 2;
 }
 
@@ -28,7 +28,7 @@ message Project{
 
 message Response {
     string status = 1;
-    google.protobuf.Timestamp allTime = 2;
+    int64 allTime = 2;
     Project project = 3;
 }
 

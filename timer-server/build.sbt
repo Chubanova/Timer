@@ -25,5 +25,5 @@ libraryDependencies ++= Seq(
 libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.7.0"
 libraryDependencies += "com.typesafe" % "config" % "1.3.4"
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
-libraryDependencies += "com.chubanova" % "timer-proto" % "1.1.2-SNAPSHOT"
+libraryDependencies += "com.chubanova" % "timer-proto" % "1.1.3-SNAPSHOT"
 libraryDependencies += "ch.rasc" % "bsoncodec" % "1.0.1"

@@ -15,7 +15,7 @@ class RequestResponseLogger extends LazyLogging{
   import org.aspectj.lang.ProceedingJoinPoint
   import org.aspectj.lang.annotation.Around
 
-  @Around("execution(*com.chubanova.grpc.TimerService.*(..))")
+  @Around("execution(* com.chubanova.grpc.TimerService.*(..))")
   @throws[Throwable]
   def logService(joinPoint: ProceedingJoinPoint): Any = {
     logger.info("CALL SERVICE METHOD: " + joinPoint.getSignature.getName + " WITH REQUEST: " + util.Arrays.toString(joinPoint.getArgs))

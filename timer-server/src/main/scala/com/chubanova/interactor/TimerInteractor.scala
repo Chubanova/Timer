@@ -17,7 +17,7 @@ class TimerInteractor(@Autowired timerRepository: TimerRepository) {
   def startTimer(start: Int, project: String, subproject: String)  = {
     timerRepository.startTimer(start, project, subproject)
   }
-  def addTime(times: Timestamp, project: String, subproject: String)(implicit executionContext: ExecutionContext) = {
+  def addTime(times: Long, project: String, subproject: String)(implicit executionContext: ExecutionContext) = {
     timerRepository.addTime(times, project, subproject)
   }
 

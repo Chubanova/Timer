@@ -11,7 +11,7 @@ package object syntax {
 
      com.chubanova.grpc.AddTimes.newBuilder().setProject(
        com.chubanova.grpc.Project.newBuilder().setName(block.project).setSubProject(block.subProject)
-     ).setTime(Timestamp.newBuilder().setNanos(block.time.intValue()).build()).build()
+     ).setTime(block.time).build()
 
   }
 
