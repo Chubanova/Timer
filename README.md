@@ -1,4 +1,4 @@
-#Timer
+# Timer
 
 This project created for tracking time on some tasks and projects
 
@@ -6,7 +6,7 @@ This project created for tracking time on some tasks and projects
 
 Scala, mongo, grpc
 
-##How to use
+## How to use
 
 This is backend part of project
 You can use it by sending request using proto file. More information contains in README.md proto
