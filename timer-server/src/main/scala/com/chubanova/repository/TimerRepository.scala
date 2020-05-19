@@ -24,7 +24,7 @@ class TimerRepository(val mongoDatabase: MongoDatabase) {
     )
 
     spendTimes.insertOne(timesData).toFuture()
-    findAllTimesByProject(project, subproject)
+    findAllTimesByProject(project, subproject).toFuture()
   }
 
 

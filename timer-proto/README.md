@@ -8,7 +8,7 @@ your generated files in build/generated/source/proto/main/grpc and build/generat
 
 ### How to use
  Method **addTime** - to add time for project and sub project. 
- This method returns status, all time that you spent on this project 
+ This method returns status, all time you spent on this project.
  
  Method **startTimer** - to start or stop timer for project and sub project
  This method returns status, all time that you spent on this project 
