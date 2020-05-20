@@ -10,11 +10,11 @@ import scala.concurrent.ExecutionContext
 
 @Service
 class TimerInteractor(@Autowired timerRepository: TimerRepository) {
-  def watchStatistic(period: Int, project: Int, projectList: Array[WatchStatisticFilter.Project], from: Timestamp, to: Timestamp) = {
+  def watchStatistic(period: Int, project: Int, projectList: Array[WatchStatisticFilter.Project], from: Timestamp, to: Timestamp)(implicit executionContext: ExecutionContext) = {
     timerRepository.watchStatistic(period, project, projectList, from, to)
   }
 
-  def startTimer(start: Int, project: String, subproject: String)  = {
+  def startTimer(start: Int, project: String, subproject: String)(implicit executionContext: ExecutionContext)  = {
     timerRepository.startTimer(start, project, subproject)
   }
   def addTime(times: Long, project: String, subproject: String)(implicit executionContext: ExecutionContext) = {

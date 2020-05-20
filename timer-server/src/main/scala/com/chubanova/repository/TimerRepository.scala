@@ -3,10 +3,9 @@ package com.chubanova.repository
 import java.util.Date
 
 import com.chubanova.grpc.WatchStatisticFilter
-import com.chubanova.model.TimeForProject
+import com.chubanova.model.{TimeForProject, Timer}
 import com.google.protobuf.Timestamp
 import org.mongodb.scala.MongoDatabase
-
 import org.mongodb.scala.model.Filters._
 
 import scala.concurrent.ExecutionContext
@@ -19,11 +18,13 @@ class TimerRepository(val mongoDatabase: MongoDatabase) {
   import org.mongodb.scala.bson.codecs.DEFAULT_CODEC_REGISTRY
   import org.mongodb.scala.bson.codecs.Macros._
 
-  private val customCodecs = fromProviders(classOf[TimeForProject])
+  private val customCodecs = fromProviders(classOf[TimeForProject], classOf[Timer])
 
   private val codecRegistry = fromRegistries(customCodecs, DEFAULT_CODEC_REGISTRY)
 
   val spendTimes = mongoDatabase.getCollection[TimeForProject]("spendTimes")// this need to insert scala objects not BSON Document
+    .withCodecRegistry(codecRegistry)
+  val timer = mongoDatabase.getCollection[Timer]("timer")// this need to insert scala objects not BSON Document
     .withCodecRegistry(codecRegistry)
 
   def addTime(times: Long, project: String, subproject: String)(implicit executionContext: ExecutionContext) ={
@@ -34,7 +35,20 @@ class TimerRepository(val mongoDatabase: MongoDatabase) {
   }
 
 
-  def startTimer(start: Int, project: String, subproject: String) = ???
+  def startTimer(start: Int, project: String, subproject: String)(implicit executionContext: ExecutionContext) ={
+    val timesData = Timer(project,subproject,new Date())
+    if(start==0){
+      timer.insertOne(timesData).toFuture()
+    } else{
+      var temp : Date = new Date()
+      timer.find(and(equal("project", project), equal("subProject", subproject))).toFuture().map(t=>t.foreach(it=>temp =it.updated))
+      println(temp)
+
+    }
+
+    findAllTimesByProject(project, subproject)
+
+  }
 
   def watchStatistic(period: Int, project: Int, projectList: Array[WatchStatisticFilter.Project], from: Timestamp, to: Timestamp) = ???
 
