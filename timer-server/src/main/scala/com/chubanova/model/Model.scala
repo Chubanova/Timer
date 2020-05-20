@@ -1,7 +1,12 @@
 package com.chubanova.model
 
-case class TimeProject(
+import java.util.Date
+
+case class TimeForProject(
                   project : String,
                   subProject : String,
-                  time : Long)
+                  time : Long,
+                  updated:  Date)
+
+
 

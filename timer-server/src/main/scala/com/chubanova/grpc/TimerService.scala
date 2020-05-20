@@ -22,7 +22,16 @@ class TimerService(@Autowired val timerInteractor: TimerInteractor = null) exten
         responseObserver.onNext(Response.newBuilder().build())
         responseObserver.onCompleted()
       case Success(x) =>
-        responseObserver.onNext(Response.newBuilder().build())
+        responseObserver.onNext(
+          Response
+            .newBuilder()
+            .setAllTime(x.map(t => t.time).sum)
+            .setProject(Project
+              .newBuilder()
+              .setName(project)
+              .setSubProject(subproject)
+              .build())
+            .build())
         responseObserver.onCompleted()
       case Failure(exception) =>
         responseObserver.onError(Status.INTERNAL.withDescription(exception.getMessage).asException())
@@ -33,16 +42,16 @@ class TimerService(@Autowired val timerInteractor: TimerInteractor = null) exten
     val start = request.getStarterValue
     val project = request.getProject.getName
     val subproject = request.getProject.getSubProject
-//    timerInteractor.startTimer(start, project, subproject).onComplete {
-//      case Success(Seq()) =>
-//        responseObserver.onNext(Response.newBuilder().build())
-//        responseObserver.onCompleted()
-//      case Success(x) =>
-//        responseObserver.onNext(Response.newBuilder().build())
-//        responseObserver.onCompleted()
-//      case Failure(exception) =>
-//        responseObserver.onError(Status.INTERNAL.withDescription(exception.getMessage).asException())
-//    }
+    //    timerInteractor.startTimer(start, project, subproject).onComplete {
+    //      case Success(Seq()) =>
+    //        responseObserver.onNext(Response.newBuilder().build())
+    //        responseObserver.onCompleted()
+    //      case Success(x) =>
+    //        responseObserver.onNext(Response.newBuilder().build())
+    //        responseObserver.onCompleted()
+    //      case Failure(exception) =>
+    //        responseObserver.onError(Status.INTERNAL.withDescription(exception.getMessage).asException())
+    //    }
   }
 
   override def watchStatisticFilter(request: WatchStatisticFilter, responseObserver: StreamObserver[Statistics]): Unit = {
@@ -51,15 +60,15 @@ class TimerService(@Autowired val timerInteractor: TimerInteractor = null) exten
     val projectList = request.getProjectList.asScala.toArray
     val from = request.getFrom
     val to = request.getTo
-//    timerInteractor.watchStatistic(period, project, projectList,from, to ).onComplete {
-//      case Success(Seq()) =>
-//        responseObserver.onNext(Response.newBuilder().build())
-//        responseObserver.onCompleted()
-//      case Success(x) =>
-//        responseObserver.onNext(Response.newBuilder().build())
-//        responseObserver.onCompleted()
-//      case Failure(exception) =>
-//        responseObserver.onError(Status.INTERNAL.withDescription(exception.getMessage).asException())
-//    }
+    //    timerInteractor.watchStatistic(period, project, projectList,from, to ).onComplete {
+    //      case Success(Seq()) =>
+    //        responseObserver.onNext(Response.newBuilder().build())
+    //        responseObserver.onCompleted()
+    //      case Success(x) =>
+    //        responseObserver.onNext(Response.newBuilder().build())
+    //        responseObserver.onCompleted()
+    //      case Failure(exception) =>
+    //        responseObserver.onError(Status.INTERNAL.withDescription(exception.getMessage).asException())
+    //    }
   }
 }
