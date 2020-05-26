@@ -21,8 +21,8 @@ libraryDependencies ++= Seq(
   "org.springframework.boot" % "spring-boot-starter-logging" % springBootVersion,
   "org.springframework.boot" % "spring-boot-configuration-processor" % springBootVersion
 )
-
-libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "2.7.0"
+// Add library to your project. You can find latest version of library on site https://mvnrepository.com/
+libraryDependencies += "org.mongodb.scala" %% "mongo-scala-driver" % "4.0.3"  // Add library to your project. You can find latest version of library on site https://mvnrepository.com/
 libraryDependencies += "com.typesafe" % "config" % "1.3.4"
 libraryDependencies += "com.typesafe.scala-logging" %% "scala-logging" % "3.9.2"
 libraryDependencies += "com.chubanova" % "timer-proto" % "1.1.3-SNAPSHOT"
