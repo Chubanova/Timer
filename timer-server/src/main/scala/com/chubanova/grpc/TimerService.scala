@@ -11,10 +11,14 @@ import scala.concurrent.ExecutionContext.Implicits.global
 import scala.collection.JavaConverters._
 import scala.util.{Failure, Success}
 
-@GRpcService
-class TimerService(@Autowired val timerInteractor: TimerInteractor = null) extends TimerServiceGrpc.TimerServiceImplBase {
 
+
+@GRpcService  // mark by annotation by grpc bean
+class TimerService(@Autowired val timerInteractor: TimerInteractor = null) extends TimerServiceGrpc.TimerServiceImplBase { // Extends interface
+//override all methods
   override def addTimes(request: AddTimes, responseObserver: StreamObserver[Response]): Unit = {
+
+
     val times = request.getTime
     val project = request.getProject.getName
     val subproject = request.getProject.getSubProject

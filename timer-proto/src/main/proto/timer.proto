@@ -13,7 +13,6 @@ service TimerService {
     rpc addTimes (AddTimes) returns (Response);
     rpc startTimer (StartTimer) returns (Response);
     rpc watchStatisticFilter (WatchStatisticFilter) returns (Statistics);
-
 }
 
 message AddTimes {

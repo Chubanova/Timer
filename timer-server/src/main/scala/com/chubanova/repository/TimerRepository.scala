@@ -26,7 +26,7 @@ class TimerRepository(val mongoDatabase: MongoDatabase) {
   private val codecRegistry = fromRegistries(customCodecs, DEFAULT_CODEC_REGISTRY)
 
   val timerCollectionName = ConfigFactory.load().getString("database.timer")
-  val spendTimesCollectionName = ConfigFactory.load().getString("database.spendTimes")
+  val spendTimesCollectionName = ConfigFactory.load().getString("database.spendTime")
   val spendTimes = mongoDatabase.getCollection[TimeForProject](spendTimesCollectionName) // this need to insert scala objects not BSON Document
     .withCodecRegistry(codecRegistry)
   val timer = mongoDatabase.getCollection[Timer](timerCollectionName) // this need to insert scala objects not BSON Document
@@ -50,7 +50,8 @@ class TimerRepository(val mongoDatabase: MongoDatabase) {
 
           val minutes = (new Date().getTime - x.updated.getTime) / (1000 * 60).asInstanceOf[Long]
           val timesData = TimeForProject(project, subproject, minutes, new Date())
-          spendTimes.insertOne(timesData).toFuture()
+          println(timesData)
+          spendTimes.insertOne(timesData).toFuture().map(t=>t)
           timer.deleteOne(and(equal("project", project), equal("subProject", subproject))).toFuture()
       }
 
